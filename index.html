@@ -25,6 +25,8 @@
             border-radius: 10px;
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 100%; /* Ensure container doesn't exceed screen width */
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
         }
         .word-row {
             display: flex;
@@ -89,6 +91,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            color: black; /* Ensure text color is black */
+            -webkit-appearance: none; /* Override iOS default styles */
         }
         .key:hover {
             background-color: #ddd;
@@ -383,9 +387,5 @@
     createWordGrid();
     createKeyboard();
 </script>
-
-
-
-
 </body>
 </html>
