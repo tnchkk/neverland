@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -28,8 +29,7 @@
             font-family: "Montserrat", sans-serif;
             letter-spacing: 2px;
             color: #747474;
-            margin-top: 100px;
-            margin-bottom: 10px; /* Add 10px space below the countdown */
+            margin-top: 20px;
             background-color: transparent;
             padding: 6px;
             border-radius: 2px;
@@ -43,6 +43,7 @@
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             max-width: 100%; /* Ensure container doesn't exceed screen width */
+            margin-top: 100px;
             box-sizing: border-box; /* Include padding and border in element's total width and height */
         }
         .word-row {
@@ -234,7 +235,6 @@
     </style>
 </head>
 <body>
-<div id="countdown" class="countdown"></div>
 <div class="container">
     <h1>NEVERLANDLE</h1>
     <div id="wordGrid">
@@ -247,6 +247,7 @@
     </div>
     <div id="result" class="result"></div>
 </div>
+<div id="countdown" class="countdown"></div>
 
 <!-- HTML สำหรับ Popup -->
 <div id="popup" class="popup"></div>
@@ -274,7 +275,7 @@
     setInterval(updateCountdown, 1000); // Update every second
     updateCountdown(); // Initial call to set up the timer
 
-    const correctWord = "PENIS".toUpperCase(); // คำตอบที่ถูกต้อง
+    const correctWord = "MUSIC".toUpperCase(); // คำตอบที่ถูกต้อง
     const maxAttempts = 5;
     let attempts = 0;
     let currentGuess = '';
@@ -457,9 +458,5 @@
     createWordGrid();
     createKeyboard();
 </script>
-
-
-
-
 </body>
 </html>
