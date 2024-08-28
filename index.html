@@ -3,28 +3,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEVERLANDLE</title>
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAz8L2OAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM/B9kXgw+y1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOWYuIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOiXuQvklr385Je9ZwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0MD2I/Hp4RLx29MR5pm9PQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8cnec3llbh307Oza89vX3wAAAADfwe4rAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBgYAJ5eXkS9Ozs+PPh3/V6bWoUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMee3xDHlt6p0aLbWPPk4/7z5OL5zZvaWseU3am8kNMLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgw+yt38Ps/9u86f7sz9f/7dLY/9/D7P/fw+z/zaLiswAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzqLcL9Sv5urWsuf71azc/9q45f/Wsuf81K7m5cOc3y8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4LfmGNm56frauun/2bjp/9252v/oy93/2rjp89q56fjOpOLzv4rXFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN/D7P7fw+z/38Ps/9Wu5Lzz5+b/8+fm/+LH6dXfw+z/38Ps/8mZ3/IAAAAAAAAAAAAAAAAAAAAAAAAAAN/D7MPfw+z/38Ps/9/C7HrlzuRM9PHz//Tx8//07vDv3sPsfN/D7P/fw+z/w47bzQAAAAAAAAAAAAAAAAAAAADgxOyc3sTtkXBidkEAAAAAAAAAAHp5em3t3+1mb2F3KgAAAABwYXZB4MTtkdy/6ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeWRvJfHJ3ngAAAAA4cPrMt/D7bcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG9hdRJvYnZiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP9/AAD/vwAA/78AAP//AAD+fwAA/n8AAPpfAADwDwAA+B8AAPAPAADgBwAAxiMAAM/zAAD/vwAA//8AAA==" rel="icon" type="image/x-icon">
     <link href='https://fonts.googleapis.com/css?family=DM+Sans' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'DM Sans', Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stack items vertically */
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-image: url('https://img.freepik.com/free-vector/silky-gradient-peach-background_53876-114863.jpg?t=st=1724783686~exp=1724787286~hmac=c82f8d769a434b1491794b8e9440e6c1527a9588ab9cb664f160c0236137ecc3&w=1380');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: rgb(172,196,212);
+            background: radial-gradient(circle, rgba(172,196,212,1) 0%, rgba(255,255,255,1) 120%);
         }
+
+        .countdown {
+            text-align: center;
+            font-size: 18px;
+            font-family: "Montserrat", sans-serif;
+            letter-spacing: 2px;
+            color: #747474;
+            margin-top: 100px;
+            margin-bottom: 10px; /* Add 10px space below the countdown */
+            background-color: transparent;
+            padding: 6px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
         .container {
             text-align: center;
             padding: 30px;
             border-radius: 10px;
             background-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 100%; /* Ensure container doesn't exceed screen width */
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
         }
         .word-row {
             display: flex;
@@ -53,9 +72,9 @@
             border-color: #ffc107;
         }
         .wrong {
-            background-color: #dc3545;
+            background-color: #696969;
             color: white;
-            border-color: #dc3545;
+            border-color: #696969;
         }
         .keyboard {
             display: grid;
@@ -90,7 +109,6 @@
             border-radius: 4px;
             cursor: pointer;
             color: black; /* Ensure text color is black */
-            -webkit-appearance: none; /* Override iOS default styles */
         }
         .key:hover {
             background-color: #ddd;
@@ -145,6 +163,27 @@
         .key.enter:active {
             background-color: #ccc;
         }
+        .key.backspace.used::before {
+            color: white; /* Change icon color to white */
+        }
+        .key.backspaceused {
+            background-color: #ccc;
+            color: #fff;
+            cursor: not-allowed;
+        }
+        .key.backspaceused:hover {
+            background-color: #ccc; /* Ensure hover state does not change appearance */
+            cursor: not-allowed; /* Indicate that the key is not clickable */
+        }
+        .key.enterused {
+            background-color: #ccc;
+            color: #fff;
+            cursor: not-allowed;
+        }
+        .key.enterused:hover {
+            background-color: #ccc; /* Ensure hover state does not change appearance */
+            cursor: not-allowed; /* Indicate that the key is not clickable */
+        }
         .result {
             margin-top: 20px;
             font-size: 18px;
@@ -158,14 +197,14 @@
             transform: translate(-50%, -50%);
             width: 248px;
             height: 350px;
-            background-color: #d7bde2;
+            background-color: #a9cce3;
             border-radius: 8px;
             padding: 20px;
             text-align: center;
             color: white;
             box-shadow: 0 0 15px rgba(0,0,0,0.3);
             z-index: 1000;
-            font-size: 18px;
+            font-size: 28px;
             font-family: 'DM Sans', Arial, sans-serif;
             align-items: center; /* Center items vertically */
             justify-content: center; /* Center items horizontally */
@@ -195,7 +234,7 @@
     </style>
 </head>
 <body>
-
+<div id="countdown" class="countdown"></div>
 <div class="container">
     <h1>NEVERLANDLE</h1>
     <div id="wordGrid">
@@ -214,6 +253,27 @@
 <div id="popupOverlay" class="popup-overlay"></div>
 
 <script>
+    // Countdown Timer Code
+    function updateCountdown() {
+        const endTime = new Date().setHours(24, 0, 0, 0); // Midnight tomorrow
+        const now = new Date().getTime();
+        const distance = endTime - now;
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerHTML =
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (distance < 0) {
+            document.getElementById('countdown').innerHTML = "00:00:00";
+        }
+    }
+
+    setInterval(updateCountdown, 1000); // Update every second
+    updateCountdown(); // Initial call to set up the timer
+
     const correctWord = "PETER".toUpperCase(); // คำตอบที่ถูกต้อง
     const maxAttempts = 5;
     let attempts = 0;
@@ -338,20 +398,20 @@
                 boxes[i].classList.add('misplaced');
             } else {
                 boxes[i].classList.add('wrong');
+                button.classList.add('used'); // เพิ่มคลาส 'used' เมื่อเป็นตัวอักษรผิด
+                button.setAttribute('disabled', 'true'); // ปิดการใช้งานปุ่มที่เป็นตัวอักษรผิด
             }
-
-            button.classList.add('used');
         }
 
         attempts++;
         currentGuess = '';
 
         if (correctCount === correctWord.length) {
-            showPopup("Congratulations! You guessed the word correctly!");
+            showPopup("You did it, baby!!. You're the best :)");
             gameOver = true; // Set game over flag to true
             disableKeyboard(); // Disable all keys when game ends
         } else if (attempts >= maxAttempts) {
-            showPopup(`Unfortunately, you didn't make it. The correct word was: ${correctWord}`);
+            showPopup(`Unfortunately, you didn't make it :( The correct word was: ${correctWord}`);
             gameOver = true; // Set game over flag to true
             disableKeyboard(); // Disable all keys when game ends
         }
@@ -360,6 +420,9 @@
     function disableKeyboard() {
         document.querySelectorAll('.key').forEach(key => {
             key.disabled = true;
+            key.classList.add('used'); // Add the 'used' class to all keys
+            key.classList.add('backspaceused'); // Add the 'used' class to all keys
+            key.classList.add('enterused'); // Add the 'used' class to all keys
         });
     }
 
@@ -373,17 +436,30 @@
     function showPopup(message) {
         const popup = document.getElementById('popup');
         const overlay = document.getElementById('popupOverlay');
+        
+        // Set the popup and overlay to be visible
+        popup.style.display = 'flex';
         popup.innerText = message;
-        popup.classList.add('show');
-        overlay.classList.add('show');
-        overlay.onclick = () => {
-            popup.classList.remove('show');
-            overlay.classList.remove('show');
-        };
+        overlay.style.display = 'block';
+
+        // Navigate to a different page when clicking inside the popup
+        popup.addEventListener('click', () => {
+            window.location.href = 'https://www.example.com'; // Replace with your desired URL
+        });
+        
+        // Hide the popup and overlay when clicking outside the popup
+        overlay.addEventListener('click', () => {
+            popup.style.display = 'none'; // Hide the popup
+            overlay.style.display = 'none'; // Hide the overlay
+        });
     }
 
     createWordGrid();
     createKeyboard();
 </script>
+
+
+
+
 </body>
 </html>
