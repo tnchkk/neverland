@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -275,7 +274,7 @@
     setInterval(updateCountdown, 1000); // Update every second
     updateCountdown(); // Initial call to set up the timer
 
-    const correctWord = "MUSIC".toUpperCase(); // คำตอบที่ถูกต้อง
+    const correctWord = "BOSSY".toUpperCase(); // คำตอบที่ถูกต้อง
     const maxAttempts = 5;
     let attempts = 0;
     let currentGuess = '';
@@ -365,10 +364,23 @@
         }
     }
 
-    function handleEnter() {
+    function handleLetterClick(letter, button) {
+        // Check if game is over before allowing clicks
+        if (gameOver) return;
+
+        if (currentGuess.length < correctWord.length) {
+            currentGuess += letter;
+            updateGrid();
+        }
+    }
+
+    async function handleEnter() {
         if (gameOver) return; // Exit if the game is over
+
         if (currentGuess.length === correctWord.length) {
             checkGuess();
+        } else {
+            alert("I NEED 5 LETTERS!");
         }
     }
 
@@ -387,20 +399,44 @@
         const row = document.querySelectorAll('.word-row')[attempts];
         const boxes = row.querySelectorAll('.letter-box');
         let correctCount = 0;
+        const letterCount = {};
 
+        // Step 1: Calculate the frequency of each letter in the correct word
+        for (let i = 0; i < correctWord.length; i++) {
+            const letter = correctWord[i];
+            letterCount[letter] = (letterCount[letter] || 0) + 1;
+        }
+
+        // Step 2: First pass to mark the correct letters
+        for (let i = 0; i < currentGuess.length; i++) {
+            const letter = currentGuess[i];
+            if (correctWord[i] === letter) {
+                boxes[i].classList.add('correct');
+                correctCount++;
+                letterCount[letter]--; // Reduce the count for correct letters
+            }
+        }
+
+        // Step 3: Second pass to mark misplaced and excess letters
         for (let i = 0; i < currentGuess.length; i++) {
             const letter = currentGuess[i];
             const button = Array.from(document.querySelectorAll('.key')).find(b => b.innerText === letter);
 
-            if (correctWord[i] === letter) {
-                boxes[i].classList.add('correct');
-                correctCount++;
-            } else if (correctWord.includes(letter)) {
-                boxes[i].classList.add('misplaced');
-            } else {
-                boxes[i].classList.add('wrong');
-                button.classList.add('used'); // เพิ่มคลาส 'used' เมื่อเป็นตัวอักษรผิด
-                button.setAttribute('disabled', 'true'); // ปิดการใช้งานปุ่มที่เป็นตัวอักษรผิด
+            if (correctWord[i] !== letter) {
+                if (correctWord.includes(letter) && letterCount[letter] > 0) {
+                    // If the letter is in the word but not at this position, and we still have it available to use
+                    boxes[i].classList.add('misplaced');
+                    letterCount[letter]--; // Reduce the count for misplaced letters
+                } else {
+                    // If the letter is not supposed to be there, or there are more occurrences than needed
+                    boxes[i].classList.add('wrong');
+
+                    // Only disable and mark the key if the letter is completely wrong (not in the word at all)
+                    if (!correctWord.includes(letter) && button && !button.classList.contains('used')) {
+                        button.classList.add('used'); // Mark keyboard button as used
+                        button.setAttribute('disabled', 'true'); // Disable the button for wrong guesses
+                    }
+                }
             }
         }
 
@@ -410,11 +446,11 @@
         if (correctCount === correctWord.length) {
             showPopup("You did it, baby!!. You're the best :)");
             gameOver = true; // Set game over flag to true
-            disableKeyboard(); // Disable all keys when game ends
+            disableKeyboard(); // Disable all keys when the game ends
         } else if (attempts >= maxAttempts) {
             showPopup(`Unfortunately, you didn't make it :( The correct word was: ${correctWord}`);
             gameOver = true; // Set game over flag to true
-            disableKeyboard(); // Disable all keys when game ends
+            disableKeyboard(); // Disable all keys when the game ends
         }
     }
 
@@ -458,5 +494,7 @@
     createWordGrid();
     createKeyboard();
 </script>
+
+
 </body>
 </html>
